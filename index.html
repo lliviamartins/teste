@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Loja</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: #2b2b2b;
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
+
+select {
+    background: #444;
+    color: white;
+}
+
+button {
+    background: #00c853;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00e676;
+}
+
+.resultado {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🔥 LOJA</h1>
+
+    <label>Produto</label>
+    <select id="produto">
+        <option value="1">Assinatura mensal</option>
+        <option value="2">Assinatura anual</option>
+        <option value="3">Sair</option>
+    </select>
+
+    <label>Pagamento</label>
+    <select id="pagamento">
+        <option value="1">PIX / Dinheiro (-10%)</option>
+        <option value="2">Débito (-5%)</option>
+        <option value="3">Crédito (+10%)</option>
+    </select>
+
+    <button onclick="enviar()">Calcular</button>
+
+    <div class="resultado" id="resposta"></div>
+</div>
+
+<script>
+function enviar() {
+    let produto = document.getElementById("produto").value;
+    let pagamento = document.getElementById("pagamento").value;
+
+    fetch('/calcular', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ produto, pagamento })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("resposta").innerText = data.resultado;
+    });
+}
+</script>
+
+</body>
+</html>
