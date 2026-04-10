@@ -2,25 +2,26 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Loja</title>
+<title>Loja Premium</title>
 
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
-    color: white;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: white;
 }
 
-.container {
-    background: #2b2b2b;
+.card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
     padding: 30px;
     border-radius: 15px;
-    width: 320px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    width: 350px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
     text-align: center;
 }
 
@@ -28,22 +29,28 @@ h1 {
     margin-bottom: 20px;
 }
 
+label {
+    display: block;
+    margin-top: 15px;
+}
+
 select, button {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 12px;
+    margin-top: 5px;
     border-radius: 8px;
     border: none;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 select {
-    background: #444;
+    background: #1e1e1e;
     color: white;
 }
 
 button {
-    background: #00c853;
+    margin-top: 20px;
+    background: #ff9800;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -51,12 +58,13 @@ button {
 }
 
 button:hover {
-    background: #00e676;
+    background: #ffc107;
 }
 
 .resultado {
     margin-top: 20px;
-    font-size: 18px;
+    white-space: pre-line;
+    font-size: 16px;
     font-weight: bold;
 }
 </style>
@@ -64,30 +72,30 @@ button:hover {
 
 <body>
 
-<div class="container">
-    <h1>🔥 LOJA</h1>
+<div class="card">
+    <h1>🛒 LOJA PREMIUM</h1>
 
-    <label>Produto</label>
+    <label>Escolha o produto</label>
     <select id="produto">
         <option value="1">Assinatura mensal</option>
         <option value="2">Assinatura anual</option>
         <option value="3">Sair</option>
     </select>
 
-    <label>Pagamento</label>
+    <label>Forma de pagamento</label>
     <select id="pagamento">
-        <option value="1">PIX / Dinheiro (-10%)</option>
+        <option value="1">PIX/Dinheiro (-10%)</option>
         <option value="2">Débito (-5%)</option>
         <option value="3">Crédito (+10%)</option>
     </select>
 
-    <button onclick="enviar()">Calcular</button>
+    <button onclick="calcular()">Calcular valor</button>
 
-    <div class="resultado" id="resposta"></div>
+    <div class="resultado" id="resultado"></div>
 </div>
 
 <script>
-function enviar() {
+function calcular() {
     let produto = document.getElementById("produto").value;
     let pagamento = document.getElementById("pagamento").value;
 
@@ -98,7 +106,7 @@ function enviar() {
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("resposta").innerText = data.resultado;
+        document.getElementById("resultado").innerText = data.resultado;
     });
 }
 </script>
